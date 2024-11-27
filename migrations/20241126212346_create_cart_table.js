@@ -4,7 +4,7 @@
  */
 export const up = async (knex) => {
     await knex.schema.createTable('cart', (table) => {
-        table.uuid('id').primary()
+        table.uuid('id').defaultTo(knex.raw('gen_random_uuid()')).primary()
         table
             .uuid('customer_id')
             .references('id')
