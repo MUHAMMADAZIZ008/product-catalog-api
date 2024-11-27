@@ -4,7 +4,7 @@
  */
 export const up = async (knex) => {
     await knex.schema.createTable('users', (table) => {
-        table.uuid('id').primary()
+        table.uuid('id').defaultTo(knex.raw('gen_random_uuid()')).primary()
         table.string('email').unique().notNullable()
         table.string('username').unique().notNullable()
         table.string('password')

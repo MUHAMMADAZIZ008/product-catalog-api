@@ -6,9 +6,9 @@ const config = {
         client: 'pg',
         connection: {
             host: '127.0.0.1',
-            database: 'postgres',
+            database: 'product',
             user: 'postgres',
-            password: 'postgres',
+            password: '3636',
         },
         migrations: {
             directory: './migrations',

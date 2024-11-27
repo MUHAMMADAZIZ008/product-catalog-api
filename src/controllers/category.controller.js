@@ -1,4 +1,4 @@
-import db from "../databases/index.js"
+import {db} from "../database/index.js"
 
 export const  getallCategoryController = async (req,res,next) => {
     try {
