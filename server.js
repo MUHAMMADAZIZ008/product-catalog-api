@@ -1,2 +1,2 @@
 //table lar migration bilan yasaladi
-console.log('salom');
+console.log('salom')

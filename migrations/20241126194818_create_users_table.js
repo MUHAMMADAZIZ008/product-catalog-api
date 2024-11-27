@@ -9,8 +9,10 @@ export const up = async (knex) => {
         table.string('username').unique().notNullable()
         table.string('password')
         table.string('google_id')
-        table.enum('role',['user','admin','manager']).defaultTo('user')
-        table.enum('status',['active','inactive','banned','pending']).defaultTo('inactive')
+        table.enum('role', ['user', 'admin', 'manager']).defaultTo('user')
+        table
+            .enum('status', ['active', 'inactive', 'banned', 'pending'])
+            .defaultTo('inactive')
         table.timestamp('created_at').defaultTo(knex.fn.now())
         table.timestamp('updated_at').defaultTo(knex.fn.now())
     })

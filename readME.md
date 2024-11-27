@@ -1,5 +1,7 @@
 # tablelarni yaratish uchun
-npx knex migrate:latest 
+
+npx knex migrate:latest
 
 # tablelarni ochrisih uchun
+
 npx knex migrate:rollback
