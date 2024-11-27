@@ -1,7 +1,10 @@
-import { createCartService, daleteCartService, getCartService, updateCartService } from '../services/index.js'
+import {
+    createCartService,
+    daleteCartService,
+    getCartService,
+    updateCartService,
+} from '../services/index.js'
 import { logger } from '../utils/index.js'
-
-
 
 export const createCartController = async (req, res, next) => {
     try {
@@ -32,7 +35,6 @@ export const getAllCartController = async (req, res, next) => {
     }
 }
 
-
 export const getByIdCartController = async (req, res, next) => {
     try {
         const id = req.params.id
@@ -46,9 +48,6 @@ export const getByIdCartController = async (req, res, next) => {
         next(error)
     }
 }
-
-
-
 
 export const updateCartController = async (req, res, next) => {
     try {

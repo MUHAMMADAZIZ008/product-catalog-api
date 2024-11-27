@@ -12,7 +12,7 @@ import { checkValidatons } from '../middlewares/index.js'
 
 export const usersRouter = new Router()
 
-usersRouter.post('/',checkValidatons(userSchema), createUserController)
+usersRouter.post('/', checkValidatons(userSchema), createUserController)
 usersRouter.get('/', getAllUserController)
 usersRouter.get('/search', getBySearchUserController)
 usersRouter.get('/:id', getByIdUserController)

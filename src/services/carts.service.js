@@ -1,27 +1,27 @@
-import { AppError, logger } from "../utils/index.js"
-import {db} from '../database/index.js'
+import { AppError, logger } from '../utils/index.js'
+import { db } from '../database/index.js'
 
-export const getCartService = async (type, data) =>{
+export const getCartService = async (type, data) => {
     try {
         let result
         switch (type) {
             case 'all':
                 result = await db.select().from('cart')
-                break;
+                break
             case 'id':
                 result = await db.select().from('cart').where('id', '=', data)
-                break;
+                break
             default:
-                break;
+                break
         }
         return result
     } catch (error) {
         logger.error(error.message)
         throw new AppError(error.message, 500)
     }
-} 
+}
 
-export const createCartService = async(cart) =>{
+export const createCartService = async (cart) => {
     try {
         const newCart = await db('cart').insert(cart).returning('*')
         return newCart
@@ -31,12 +31,13 @@ export const createCartService = async(cart) =>{
     }
 }
 
-
-export const updateCartService = async(id, cart) =>{
+export const updateCartService = async (id, cart) => {
     try {
-
-        const updatedCart = await db('cart').where('id', '=', id).update(cart).returning("*")
-        if(updatedCart.length === 0){
+        const updatedCart = await db('cart')
+            .where('id', '=', id)
+            .update(cart)
+            .returning('*')
+        if (updatedCart.length === 0) {
             throw new AppError('cart not found', 404)
         }
         return updatedCart
@@ -46,10 +47,13 @@ export const updateCartService = async(id, cart) =>{
     }
 }
 
-export const daleteCartService = async(id) =>{
+export const daleteCartService = async (id) => {
     try {
-        const deleteUser = await db('cart').where('id', '=', id).del().returning("*")
-        if(deleteUser.length === 0){
+        const deleteUser = await db('cart')
+            .where('id', '=', id)
+            .del()
+            .returning('*')
+        if (deleteUser.length === 0) {
             throw new AppError('cart not found', 404)
         }
         return deleteUser
