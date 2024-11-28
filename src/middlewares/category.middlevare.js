@@ -1,4 +1,4 @@
-import { validateCategory } from "../validations"
+import { validateCategory } from "../validations/index.js"
 
 
 export const createCategory = (req,res,next) =>{

@@ -1,4 +1,4 @@
-import {validateProduct} from "../validations/index"
+import {productSchema} from "../validations/index.js"
 
 export const validateProductMiddleware = (req, res, next) => {
     const { error } = validateProduct(req.body)
