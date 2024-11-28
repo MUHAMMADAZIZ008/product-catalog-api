@@ -10,8 +10,8 @@ import {
 
 export const categoryRouter = Router()
 
-categoryRouter.get('/all', getallCategoryController)
-categoryRouter.get('/one/:id', getoneCategoryController)
-categoryRouter.post('/add', createCategoryController)
-categoryRouter.put('/update/:id', updateCategoryController)
-categoryRouter.delete('/delete', deleteCategoryController)
+categoryRouter.get('/', getallCategoryController)
+categoryRouter.get('/:id', getoneCategoryController)
+categoryRouter.post('/', createCategoryController)
+categoryRouter.put('/:id', updateCategoryController)
+categoryRouter.delete('/:id', deleteCategoryController)
