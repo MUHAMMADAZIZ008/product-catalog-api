@@ -1,5 +1,5 @@
-import { AppError, logger } from '../utils/index.js'
-import  db  from '../database/index.js'
+import { AppError, logger, otpGenerator, sendMail } from '../utils/index.js'
+import { db } from '../database/index.js'
 
 export const getUserService = async (type, data) => {
     try {
@@ -48,7 +48,7 @@ export const createUserService = async (user) => {
         return newUser
     } catch (error) {
         logger.error(error.message)
-        throw new AppError(error.message, 500)
+        throw new AppError(error, 500)
     }
 }
 
@@ -93,6 +93,24 @@ export const daleteUserService = async (id) => {
         return deleteUser
     } catch (error) {
         logger.error(error.message)
+        throw new AppError(error.message, 500)
+    }
+}
+
+
+
+
+
+//auth
+export const authService = async (user) =>{
+    try {
+        const newUser = await createUserService(user)
+        console.log(newUser);
+        
+        const otp = otpGenerator
+        await sendMail(newUser[0].email, 'YOUR OTP', otp)
+        return newUser
+    } catch (error) {
         throw new AppError(error.message, 500)
     }
 }
