@@ -1,7 +1,7 @@
-import knex from 'knex'
-import { config } from '../configs/index.js'
+import knex from 'knex';
+import { config } from '../configs/index.js';
 
-export const db = knex({
+const db = knex({
     client: 'pg',
     connection: {
         host: config.postgres.host,
@@ -10,4 +10,6 @@ export const db = knex({
         password: config.postgres.password,
         database: config.postgres.database,
     },
-})
+});
+
+export default db;  

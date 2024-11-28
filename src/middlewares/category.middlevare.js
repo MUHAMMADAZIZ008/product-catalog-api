@@ -1,14 +1,15 @@
-import { validateCategory } from "../validations"
+import { validateCategory } from "../validations/index.js";
 
+export const createCategory = (req, res, next) => {
+    const { success, errors } = validateCategory(req.body);  // validateCategory funksiyasini chaqirish
 
-export const createCategory = (req,res,next) =>{
-    const {error} = validateCategory(req.body)
-    if(error){
+    if (!success) {
         return res.status(400).json({
-            success:false,
-            message:"Validation failed",
-            errors: error.details.map((err) => err.message),
-        })
+            success: false,
+            message: "Validation failed",
+            errors: errors.map((err) => err.message),  // zod xatoliklaridan foydalanish
+        });
     }
-    next()
-}
+
+    next();  // Agar xatolik bo'lmasa, keyingi middlewarega o'tish
+};

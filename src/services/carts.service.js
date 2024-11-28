@@ -1,5 +1,5 @@
 import { AppError, logger } from '../utils/index.js'
-import { db } from '../database/index.js'
+import  db  from '../database/index.js'
 
 export const getCartService = async (type, data) => {
     try {
