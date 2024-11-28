@@ -97,16 +97,12 @@ export const daleteUserService = async (id) => {
     }
 }
 
-
-
-
-
 //auth
-export const authService = async (user) =>{
+export const authService = async (user) => {
     try {
         const newUser = await createUserService(user)
-        console.log(newUser);
-        
+        console.log(newUser)
+
         const otp = otpGenerator
         await sendMail(newUser[0].email, 'YOUR OTP', otp)
         return newUser
