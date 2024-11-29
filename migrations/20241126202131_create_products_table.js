@@ -12,7 +12,7 @@ export const up = async (knex) => {
             .uuid('category_id')
             .references('id')
             .inTable('categories')
-            .onDelete('CASCADE')
+            .onDelete('SET NULL')
         table
             .uuid('seller_id')
             .references('id')
