@@ -1,14 +1,17 @@
+import { config as envConfig } from "./src/configs/index.js"
+
 /**
  * @type { Object.<string, import("knex").Knex.Config> }
  */
 const config = {
     development: {
         client: 'pg',
-        connection: {
-            host: '127.0.0.1',
-            database: 'product',
-            user: 'postgres',
-            password: '3636',
+        connection:{
+            host: envConfig.postgres.host,
+            user: envConfig.postgres.user,
+            password: envConfig.postgres.password,
+            database: envConfig.postgres.database,
+            port: envConfig.postgres.port
         },
         migrations: {
             directory: './migrations',
