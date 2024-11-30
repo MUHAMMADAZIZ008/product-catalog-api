@@ -1,4 +1,4 @@
-import { db } from '../database/index.js'
+import db  from '../database/index.js'
 
 export const reviewService = {
     getAll: async (page = 1, limit = 10) => {

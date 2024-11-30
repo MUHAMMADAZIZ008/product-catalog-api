@@ -1,4 +1,4 @@
-import { db } from '../database/index.js'
+import db from '../database/index.js'
 import {
     createCategoryService,
     deleteCategoryService,
@@ -32,6 +32,10 @@ export const getoneCategoryController = async (req, res, next) => {
         const id = req.params.id
         const category = await getCategorySevice('id', id)
 
+        if (category.length === 0) {
+            throw new AppError('No categories found', 404)
+        }
+
         return res.status(200).send({
             message: 'success',
             date: category,
@@ -44,7 +48,7 @@ export const getoneCategoryController = async (req, res, next) => {
 export const createCategoryController = async (req, res, next) => {
     try {
         const body = req.body
-        const newCategory = await createCategoryService(req.body)
+        const newCategory = await createCategoryService(body)
 
         return res.status(201).send({
             status: 'Created',
@@ -63,12 +67,6 @@ export const updateCategoryController = async (req, res, next) => {
 
         const updatedCategory = await updateCategoryService(id, updates)
 
-        if (!updatedCategory) {
-            return res.status(404).send({
-                status: 'Not Found',
-                message: 'No Category found with the provided ID',
-            })
-        }
 
         return res.status(200).send({
             status: 'Success',

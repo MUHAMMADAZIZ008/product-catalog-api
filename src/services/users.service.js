@@ -1,5 +1,7 @@
+import knex from 'knex'
+
 import { AppError, logger, otpGenerator, sendMail } from '../utils/index.js'
-import { db } from '../database/index.js'
+import db from '../database/index.js'
 
 export const getUserService = async (type, data) => {
     try {
@@ -99,13 +101,71 @@ export const daleteUserService = async (id) => {
 
 //auth
 export const authService = async (user) => {
-    try {
-        const newUser = await createUserService(user)
-        console.log(newUser)
+    db.transaction(async (trx) => {
+        try {
+            const otp = otpGenerator
+            const newUser = await createUserService(user)
+            const saveOtp = {
+                user_id: newUser[0].id,
+                code: otp,
+            }
 
-        const otp = otpGenerator
-        await sendMail(newUser[0].email, 'YOUR OTP', otp)
-        return newUser
+            await db('otps').insert(saveOtp)
+
+            await sendMail(
+                newUser[0].email,
+                'YOUR OTP',
+                `
+                otp: ${otp},
+                user_id: ${newUser[0].id}
+            `,
+            )
+            await trx.commit()
+            return newUser
+        } catch (error) {
+            trx.rollback()
+            throw new AppError(error.message, 500)
+        }
+    })
+}
+
+export const otpService = async (otp) => {
+    return db.transaction(async (trx) => {
+        try {
+            const currentUser = await getUserService('id', otp.user_id)
+            if (!currentUser.length) {
+                throw new AppError('User not found', 404)
+            }
+
+            const currentOtp = await trx
+                .select()
+                .from('otps')
+                .where('user_id', '=', otp.user_id)
+            if (!currentOtp.length || currentOtp[0].code !== otp.otp) {
+                throw new AppError('OTP code is not true', 400)
+            }
+
+            const validity_period =
+                new Date() - new Date(currentOtp[0].created_at)
+            if (validity_period > 60000) {
+                throw new AppError('Expired time!', 400)
+            }
+
+            await trx('users')
+                .where('id', '=', otp.user_id)
+                .update({ status: 'active' })
+
+            await trx('otps').where('user_id', '=', otp.user_id).del()
+            return true
+        } catch (error) {
+            throw new AppError(error.message, 500)
+        }
+    })
+}
+
+export const loginUserService = async(signUser) =>{
+    try {
+        
     } catch (error) {
         throw new AppError(error.message, 500)
     }
