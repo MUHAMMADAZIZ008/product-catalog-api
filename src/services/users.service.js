@@ -1,6 +1,6 @@
 import knex from 'knex'
 
-import { AppError, logger, otpGenerator, sendMail } from '../utils/index.js'
+import { AppError, createAcessAndRefresh, createBcrypt, logger, otpGenerator, sendMail } from '../utils/index.js'
 import db from '../database/index.js'
 
 export const getUserService = async (type, data) => {
@@ -46,7 +46,14 @@ export const createUserService = async (user) => {
         if (currentUsername.length !== 0) {
             throw new AppError('username already exists', 403)
         }
+        
+        const hashPassowrd = await createBcrypt(user.password)
+        
+        
+        user.password = hashPassowrd
+             
         const newUser = await db('users').insert(user).returning('*')
+        
         return newUser
     } catch (error) {
         logger.error(error.message)
@@ -101,16 +108,18 @@ export const daleteUserService = async (id) => {
 
 //auth
 export const authService = async (user) => {
-    db.transaction(async (trx) => {
+    return db.transaction(async (trx) => {
         try {
-            const otp = otpGenerator
-            const newUser = await createUserService(user)
+            const otp = otpGenerator; 
+
+            const newUser = await createUserService(user);
+
             const saveOtp = {
                 user_id: newUser[0].id,
                 code: otp,
-            }
+            };
 
-            await db('otps').insert(saveOtp)
+            await trx('otps').insert(saveOtp);
 
             await sendMail(
                 newUser[0].email,
@@ -119,15 +128,15 @@ export const authService = async (user) => {
                 otp: ${otp},
                 user_id: ${newUser[0].id}
             `,
-            )
-            await trx.commit()
-            return newUser
+            );
+
+            return newUser;
         } catch (error) {
-            trx.rollback()
-            throw new AppError(error.message, 500)
+            throw new AppError(error.message, 500); 
         }
-    })
-}
+    });
+};
+
 
 export const otpService = async (otp) => {
     return db.transaction(async (trx) => {
@@ -165,6 +174,21 @@ export const otpService = async (otp) => {
 
 export const loginUserService = async (signUser) => {
     try {
+        
+        const currentUser = await getUserService('username', signUser.username)
+        if(!currentUser || currentUser[0].passowrd !== signUser.passowrd){
+            throw new AppError('Incorrect username or passowrd', 401)
+        }
+        if(currentUser[0].status !== 'active'){
+            throw new AppError('you are not active!')
+        }
+        const payload = {
+            id: currentUser[0].id,
+            email: currentUser[0].email,
+            role: currentUser[0].role
+        } 
+        const tokens = await createAcessAndRefresh(payload)
+        return tokens
     } catch (error) {
         throw new AppError(error.message, 500)
     }

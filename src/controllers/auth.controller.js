@@ -33,6 +33,10 @@ export const loginController = async (req, res, next) => {
     try {
         const body = req.body
         const signInUser = await loginUserService(body)
+        return res.status(200).send({
+            message: 'succes',
+            token: signInUser
+        })
     } catch (error) {
         logger.error(error.message)
         next(error)
