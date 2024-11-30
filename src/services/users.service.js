@@ -163,9 +163,8 @@ export const otpService = async (otp) => {
     })
 }
 
-export const loginUserService = async(signUser) =>{
+export const loginUserService = async (signUser) => {
     try {
-        
     } catch (error) {
         throw new AppError(error.message, 500)
     }

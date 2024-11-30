@@ -5,7 +5,5 @@ import token from './token.js'
 export const config = {
     ...db,
     ...app,
-    ...token
+    ...token,
 }
-
-

@@ -14,14 +14,14 @@ export const registerContrloller = async (req, res, next) => {
         next(error)
     }
 }
-export const otpContrloller = async(req, res, next) =>{
+export const otpContrloller = async (req, res, next) => {
     try {
         const body = req.body
         const otp = await otpService(body)
 
         return res.status(200).send({
             message: 'succes',
-            user_active: otp
+            user_active: otp,
         })
     } catch (error) {
         logger.error(error.message)
@@ -29,7 +29,7 @@ export const otpContrloller = async(req, res, next) =>{
     }
 }
 
-export const loginController = async(req, res, next) =>{
+export const loginController = async (req, res, next) => {
     try {
         const body = req.body
         const signInUser = await loginUserService(body)

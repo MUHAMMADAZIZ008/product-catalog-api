@@ -67,7 +67,6 @@ export const updateCategoryController = async (req, res, next) => {
 
         const updatedCategory = await updateCategoryService(id, updates)
 
-
         return res.status(200).send({
             status: 'Success',
             category: updatedCategory,

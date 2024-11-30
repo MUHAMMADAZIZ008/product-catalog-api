@@ -1,23 +1,21 @@
-import jwt from "jsonwebtoken";
+import jwt from 'jsonwebtoken'
 
-import {config} from '../configs/index.js'
+import { config } from '../configs/index.js'
 
-export const createAcessAndRefresh = (user) =>{
+export const createAcessAndRefresh = (user) => {
     const access_token = jwt.sign(user, config.token.access.secret, {
-        expiresIn: config.token.access.exprisIn
+        expiresIn: config.token.access.exprisIn,
     })
     const refresh_token = jwt.sign(user, config.token.refresh.secret, {
-        expiresIn: config.token.refresh.exprisIn
+        expiresIn: config.token.refresh.exprisIn,
     })
     return {
         access_token,
-        refresh_token
+        refresh_token,
     }
 }
 
-
-export const verifyToken = (token, secret) =>{
+export const verifyToken = (token, secret) => {
     const verified = jwt.verify(token, secret)
     return verified
 }
-
