@@ -1,8 +1,9 @@
 import { productSchema } from '../validations/index.js'
 
 export const validateProductMiddleware = (req, res, next) => {
-    const { error } = validateProduct(req.body)
-    if (error) {
+    const result = validateProduct(req.body);  
+
+    if (!result.success) {
         return res.status(400).json({
             success: false,
             message: 'Validation failed',

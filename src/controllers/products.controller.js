@@ -1,4 +1,5 @@
 import { db } from '../database/index.js'
+import { createProductService, deleteProductService, getProductService, updateProductService } from '../services/index.js'
 
 export const getallProductController = async (req, res, next) => {
     try {
@@ -6,20 +7,23 @@ export const getallProductController = async (req, res, next) => {
         const limit = parseInt(req.query.limit) || 10
         const skip = (page - 1) * limit
 
-        const products = await db('products')
-            .select('*')
-            .limit(limit)
-            .offset(skip)
+        const products = await getProductService("all");
 
-        if (products.length === 0) {
-            return res
-                .status(404)
-                .send({ status: 'Not Found', message: 'No products found' })
+        const paginatedProducts = products.slice(skip, skip + limit);
 
-            return res
-                .status(200)
-                .send({ Status: 'Success', page, limit, products })
+        if (paginatedProducts.length === 0) {
+            return res.status(404).send({
+                status: 'Not Found',
+                message: 'No products found'
+            });
         }
+
+        return res.status(200).send({
+            status: 'Success',
+            page,
+            limit,
+            products: paginatedProducts,
+        });
     } catch (error) {
         next(error)
     }
@@ -47,7 +51,7 @@ export const getoneProductController = async (req, res, next) => {
 
 export const createProductController = async (req, res, next) => {
     try {
-        const newProducts = await db('products').insert(req.body).returning('*')
+        const newProducts = await createProductService(req.body);
 
         return res.status(201).send({
             status: 'Created',
@@ -64,16 +68,12 @@ export const updateProductController = async (req, res, next) => {
         const id = req.params.id
         const updates = req.body
 
-        const updated = await db('products')
-            .where({ id })
-            .update(updates)
-            .returning('*')
+        const updatedProduct = await updateProductService(id, updates);
 
-        if (updated.length === 0) {
-            return res
-                .status(404)
-                .send({ status: 'Not Found', message: 'No Product found' })
-        }
+        return res.status(200).send({
+            status: 'Success',
+            product: updatedProduct,
+        });
     } catch (error) {
         next(error)
     }
@@ -83,19 +83,14 @@ export const deleteProductController = async (req, res, next) => {
     try {
         const id = req.params.id
 
-        const deleted = await db('products').where({ id }).del()
+        const deletedProduct = await deleteProductService(id);
 
-        if (!deleted) {
-            return res.status(404).send({
-                status: 'Not Found',
-                message: 'No product found',
-            })
-        }
         return res.status(200).send({
             status: 'Deleted',
+            message: 'Product deleted successfully',
+            product: deletedProduct,
+        });
 
-            message: 'Product deleted Successfully',
-        })
     } catch (error) {
         next(error)
     }
