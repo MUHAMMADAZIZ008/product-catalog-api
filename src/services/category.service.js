@@ -1,75 +1,85 @@
-import { Category } from '../schemas/index.js'
+import db from '../database/index.js'
 import { AppError } from '../utils/index.js'
 
 export const getCategorySevice = async (type, data = '') => {
     try {
+        let result
+
         switch (type) {
             case 'all':
-                const allCategory = await Category.find()
-                return allCategory
+                result = await db('categories').select('*')
+                break
             case 'filter':
-                const filter = await Category.find(data)
-                return filter
+                result = await db('categories').where(data)
+                break
             case 'id':
-                const byId = await Category.findById(data)
-                if (byId.length === 0) {
-                    throw new AppError('category not found', 404)
-                }
-                return byId
-            case 'name':
-                const byName = await Category.find({ name: data })
-                if (byName.length === 0) {
-                    throw new AppError('category name not found', 404)
-                }
-                return byName
-            case 'tag':
-                const tag = await Category.find({ tag: data })
-                if (tag.length === 0) {
-                    throw new AppError('category tag not found', 404)
-                }
-                return tag
+                result = await db('categories').where({ id: data }).first()
+                break
+            case 'title':
+                result = await db('categories').where(
+                    'title',
+                    'like',
+                    `%${data}%`,
+                )
+                break
+
+            default:
+                throw new AppError('Invalid type for product retrieval', 400)
         }
+
+        return result
     } catch (error) {
-        throw new Error(error)
+        throw error instanceof AppError
+            ? error
+            : new AppError(error.message, 500)
     }
 }
 
-export const createCategoryService = async (category) => {
+export const createCategoryService = async (categoryData) => {
     try {
-        const newCategories = await db(category).insert(category).returning('*')
-
-        return newCategories
-    } catch (error) {
-        throw new Error(error)
-    }
-}
-
-export const updateCategoryService = async (category, id) => {
-    try {
-        const updateCategories = await db('categories')
-            .where({ id })
-            .update(updates)
+        const newCategory = await db('categories')
+            .insert(categoryData)
             .returning('*')
 
-        if (!updateCategories) {
-            throw new AppError('will not update', 400)
-        }
-        return updateCategories
+        return newCategory
     } catch (error) {
-        throw new Error(error)
+        throw new AppError(error.message, 500)
+    }
+}
+
+export const updateCategoryService = async (id, productData) => {
+    try {
+        const updatedCategory = await db('categories')
+            .where({ id })
+            .update(productData)
+            .returning('*')
+
+        if (!updatedCategory) {
+            return res.status(404).send({
+                status: 'Not Found',
+                message: 'No Category found with the provided ID',
+            })
+        }
+
+        return updatedCategory
+    } catch (error) {
+        throw new AppError(error.message, 500)
     }
 }
 
 export const deleteCategoryService = async (id) => {
     try {
-        const deleteCategories = await db('categories').where({ id }).del()
+        const deletedCategory = await db('categories')
+            .where({ id })
+            .del()
+            .returning('*')
 
-        if (!deleteCategories) {
-            throw new Error('Category not found')
+        if (!deletedCategory.length) {
+            throw new AppError('categories not found or failed to delete', 404)
         }
 
-        return deleteCategories
+        return deletedCategory[0]
     } catch (error) {
-        throw new Error(error)
+        throw new AppError(error.message, 500)
     }
 }

@@ -1,4 +1,4 @@
-import { Product } from '../schemas/index.js'
+import db from '../configs/db.js'
 import { AppError } from '../utils/index.js'
 
 export const getProductService = async (type, data = '') => {
