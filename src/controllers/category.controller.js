@@ -1,5 +1,10 @@
 import { db } from '../database/index.js'
-import { createCategoryService, deleteCategoryService, getCategorySevice, updateCategoryService } from '../services/index.js'
+import {
+    createCategoryService,
+    deleteCategoryService,
+    getCategorySevice,
+    updateCategoryService,
+} from '../services/index.js'
 
 export const getallCategoryController = async (req, res, next) => {
     try {
@@ -12,10 +17,10 @@ export const getallCategoryController = async (req, res, next) => {
             .limit(limit)
             .offset(skip)
 
-        const allCategory = await getCategorySevice("all")
+        const allCategory = await getCategorySevice('all')
         return res.status(200).send({
-            message: "success",
-            date: allCategory
+            message: 'success',
+            date: allCategory,
         })
     } catch (error) {
         next(error)
@@ -28,8 +33,8 @@ export const getoneCategoryController = async (req, res, next) => {
         const category = await getCategorySevice('id', id)
 
         return res.status(200).send({
-            message: "success",
-            date: category
+            message: 'success',
+            date: category,
         })
     } catch (error) {
         next(error)
@@ -39,12 +44,12 @@ export const getoneCategoryController = async (req, res, next) => {
 export const createCategoryController = async (req, res, next) => {
     try {
         const body = req.body
-        const newCategory = await createCategoryService(req.body); 
+        const newCategory = await createCategoryService(req.body)
 
         return res.status(201).send({
             status: 'Created',
-            category: newCategory.id,  
-        });
+            category: newCategory.id,
+        })
     } catch (error) {
         logger.error(error)
         next(error)
@@ -56,19 +61,19 @@ export const updateCategoryController = async (req, res, next) => {
         const id = req.params.id
         const updates = req.body
 
-        const updatedCategory = await updateCategoryService(id, updates);
+        const updatedCategory = await updateCategoryService(id, updates)
 
         if (!updatedCategory) {
             return res.status(404).send({
                 status: 'Not Found',
                 message: 'No Category found with the provided ID',
-            });
+            })
         }
 
         return res.status(200).send({
             status: 'Success',
             category: updatedCategory,
-        });
+        })
     } catch (error) {
         next(error)
     }
@@ -77,7 +82,7 @@ export const updateCategoryController = async (req, res, next) => {
 export const deleteCategoryController = async (req, res, next) => {
     try {
         const id = req.params.id
-        const deletedCategory = await deleteCategoryService(id);
+        const deletedCategory = await deleteCategoryService(id)
 
         return res.status(200).send({
             status: 'Deleted',

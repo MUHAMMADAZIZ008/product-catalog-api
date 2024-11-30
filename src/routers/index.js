@@ -6,7 +6,6 @@ import { cartsRouter } from './carts.routes.js'
 import { reviewRouter } from './reviews.routes.js'
 import { authRouter } from './auth.routes.js'
 
-
 export const routers = new Router()
 routers.use('/auth', authRouter)
 routers.use('/categorys', categoryRouter)
