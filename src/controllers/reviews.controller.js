@@ -1,5 +1,5 @@
 
-import { reviewService } from './reviewService.js'; 
+import { reviewService } from '../services/review.service.js'; 
 
 export const getAllReviewController = async (req, res, next) => {
     try {
