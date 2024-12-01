@@ -7,12 +7,11 @@ export const roleGuard = (allowedRoles) => {
                 next()
             } else {
                 return res.status(403).send({
-                    message: "Access denied: insufficient permissions",
-                    date: userRole
+                    message: 'Access denied: insufficient permissions',
+                    date: userRole,
                 })
             }
-        }
-        catch (e) {
+        } catch (e) {
             logger.error(e)
             next(e)
         }

@@ -4,7 +4,10 @@ export const paymentsController = {
     getAll: async (req, res, next) => {
         try {
             const { page, limit } = req.query
-            const payments = await paymentsService.getAll(parseInt(page), parseInt(limit))
+            const payments = await paymentsService.getAll(
+                parseInt(page),
+                parseInt(limit),
+            )
             return res.status(200).send({
                 status: 'Success',
                 page,

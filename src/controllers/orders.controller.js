@@ -4,7 +4,10 @@ export const ordersController = {
     getAll: async (req, res, next) => {
         try {
             const { page, limit } = req.query
-            const orders = await ordersService.getAll(parseInt(page), parseInt(limit))
+            const orders = await ordersService.getAll(
+                parseInt(page),
+                parseInt(limit),
+            )
             return res.status(200).send({
                 status: 'Success',
                 page,

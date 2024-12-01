@@ -17,7 +17,10 @@ export const orderItemsService = {
 
     getById: async (id) => {
         try {
-            const orderItem = await db('order_items').select('*').where({ id }).first()
+            const orderItem = await db('order_items')
+                .select('*')
+                .where({ id })
+                .first()
 
             if (!orderItem) {
                 throw new AppError('Order_item not found', 404)
@@ -31,7 +34,9 @@ export const orderItemsService = {
 
     getByOrderId: async (orderId) => {
         try {
-            const orderItems = await db('order_items').select('*').where({ order_id: orderId })
+            const orderItems = await db('order_items')
+                .select('*')
+                .where({ order_id: orderId })
 
             if (!orderItems.length) {
                 throw new AppError('No order items found in this ID', 404)

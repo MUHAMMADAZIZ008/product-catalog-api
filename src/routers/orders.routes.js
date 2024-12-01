@@ -10,5 +10,3 @@ orderRouter.get('/:id', ordersController.getById)
 orderRouter.post('/', checkValidatons(orderBodySchema), ordersController.create)
 orderRouter.put('/:id', ordersController.update)
 orderRouter.delete('/:id', ordersController.delete)
-
-
