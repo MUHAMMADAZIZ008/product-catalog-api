@@ -13,6 +13,7 @@ export const up = async (knex) => {
         table
             .enum('status', ['active', 'inactive', 'banned', 'pending'])
             .defaultTo('inactive')
+        table.timestamp('last_login').defaultTo(knex.fn.now())
         table.timestamp('created_at').defaultTo(knex.fn.now())
         table.timestamp('updated_at').defaultTo(knex.fn.now())
     })
