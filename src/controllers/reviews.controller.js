@@ -1,4 +1,4 @@
-import { reviewService } from '../services/review.service.js'
+import { reviewService } from '../services/index.js'
 
 export const getAllReviewController = async (req, res, next) => {
     try {
