@@ -16,14 +16,15 @@ export const createUserController = async (req, res, next) => {
         })
     } catch (error) {
         logger.error(error.message)
-
         next(error)
     }
 }
 
 export const getAllUserController = async (req, res, next) => {
     try {
-        const allData = await getUserService('all')
+        const {page, limit} = req.query
+        const allData = await getUserService('all', '', +page, +limit)
+        
         return res.status(200).send({
             message: 'success',
             data: allData,
