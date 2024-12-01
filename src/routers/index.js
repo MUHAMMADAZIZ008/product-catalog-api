@@ -8,6 +8,8 @@ import { authRouter } from './auth.routes.js'
 import { order_itemRouter } from './order_item.routes.js'
 import { orderRouter } from './orders.routes.js'
 import { paymentsRouter } from './payments.routes.js'
+import { profileRouter } from './profile.routes.js'
+import { priceHistoryRouter } from './price_history.routes.js'
 
 export const routers = new Router()
 routers.use('/auth', authRouter)
@@ -19,3 +21,5 @@ routers.use('/rewiew', reviewRouter)
 routers.use('/orderItem', order_itemRouter)
 routers.use('/orders', orderRouter)
 routers.use('/payments', paymentsRouter)
+routers.use('/profile', profileRouter)
+routers.use('/pricehistory', priceHistoryRouter )
