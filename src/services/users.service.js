@@ -1,5 +1,3 @@
-import knex from 'knex'
-
 import {
     AppError,
     comparePassword,
@@ -11,12 +9,31 @@ import {
 } from '../utils/index.js'
 import db from '../database/index.js'
 
-export const getUserService = async (type, data) => {
+export const getUserService = async (
+    type,
+    data = '',
+    page = '',
+    limit = '',
+) => {
     try {
         let result
         switch (type) {
             case 'all':
-                result = await db.select().from('users')
+                const offset = page * limit
+                result = await db('users')
+                    .select(
+                        'id',
+                        'email',
+                        'username',
+                        'google_id',
+                        'role',
+                        'status',
+                        'created_at',
+                        'updated_at',
+                        'last_login',
+                    )
+                    .limit(limit)
+                    .offset(offset)
                 break
             case 'id':
                 result = await db.select().from('users').where('id', '=', data)
@@ -213,5 +230,13 @@ export const loginUserService = async (signUser) => {
         return tokens
     } catch (error) {
         throw new AppError(error.message, 500)
+    }
+}
+
+export const forgetPasswordService = async (email) => {
+    try {
+        const currentEmail = await getUserService('email', email)
+    } catch (error) {
+        throw new AppError(error, 500)
     }
 }

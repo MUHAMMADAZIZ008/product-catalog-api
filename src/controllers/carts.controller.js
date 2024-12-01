@@ -23,7 +23,8 @@ export const createCartController = async (req, res, next) => {
 
 export const getAllCartController = async (req, res, next) => {
     try {
-        const allData = await getCartService('all')
+        const { page, limit } = req.query
+        const allData = await getCartService('all', '', +page, +limit)
         return res.status(200).send({
             message: 'success',
             data: allData,

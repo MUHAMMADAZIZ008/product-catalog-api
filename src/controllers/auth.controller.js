@@ -1,5 +1,5 @@
 import { authService, loginUserService, otpService } from '../services/index.js'
-import { AppError, logger } from '../utils/index.js'
+import { logger } from '../utils/index.js'
 
 export const registerContrloller = async (req, res, next) => {
     try {
@@ -37,6 +37,16 @@ export const loginController = async (req, res, next) => {
             message: 'succes',
             token: signInUser,
         })
+    } catch (error) {
+        logger.error(error.message)
+        next(error)
+    }
+}
+
+export const forgetPasswordController = async (req, res, next) => {
+    try {
+        const { email } = req.body
+        const returResult = forgetPasswordService(email)
     } catch (error) {
         logger.error(error.message)
         next(error)

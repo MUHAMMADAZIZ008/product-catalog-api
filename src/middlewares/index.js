@@ -1,3 +1,5 @@
 export * from './validation.middlewares.js'
 export * from './category.middlevare.js'
 export * from './product.middleware.js'
+export * from './guards/auth.guard.js'
+export * from './guards/role.guard.js'

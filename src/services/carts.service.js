@@ -1,12 +1,18 @@
 import { AppError, logger } from '../utils/index.js'
 import db from '../database/index.js'
 
-export const getCartService = async (type, data) => {
+export const getCartService = async (
+    type,
+    data = '',
+    page = '',
+    limit = '',
+) => {
     try {
         let result
         switch (type) {
             case 'all':
-                result = await db.select().from('cart')
+                const offset = (page - 1) * limit
+                result = await db('cart').limit(limit).offset(offset)
                 break
             case 'id':
                 result = await db.select().from('cart').where('id', '=', data)
