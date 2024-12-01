@@ -1,4 +1,3 @@
-import db from '../database/index.js'
 import {
     createCategoryService,
     deleteCategoryService,
@@ -55,7 +54,6 @@ export const createCategoryController = async (req, res, next) => {
             category: newCategory.id,
         })
     } catch (error) {
-        logger.error(error)
         next(error)
     }
 }

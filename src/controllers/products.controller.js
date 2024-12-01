@@ -1,4 +1,3 @@
-import db from '../database/index.js'
 import {
     createProductService,
     deleteProductService,
@@ -63,7 +62,6 @@ export const createProductController = async (req, res, next) => {
             product: newProducts[0],
         })
     } catch (error) {
-        logger.error(error)
         next(error)
     }
 }
