@@ -2,12 +2,10 @@ import { z } from 'zod'
 
 export const orderBodySchema = z.object({
     customer_id: z.string().uuid(),
-    total_amount: z
-        .number()
-        .min(0, {
-            message:
-                'Total amount must be non-negative, Minus son bolmasligi kerak',
-        }),
+    total_amount: z.number().min(0, {
+        message:
+            'Total amount must be non-negative, Minus son bolmasligi kerak',
+    }),
     discount_amount: z.number().min(0).optional(),
     delivery_fee: z.number().min(0).optional(),
     status: z
