@@ -1,4 +1,3 @@
-
 import {
     AppError,
     comparePassword,
@@ -10,16 +9,31 @@ import {
 } from '../utils/index.js'
 import db from '../database/index.js'
 
-export const getUserService = async (type, data = '', page = '', limit = '') => {
+export const getUserService = async (
+    type,
+    data = '',
+    page = '',
+    limit = '',
+) => {
     try {
         let result
         switch (type) {
             case 'all':
-                const offset = (page) * limit
-                result = await db('users') 
-                    .select('id', 'email', 'username', 'google_id', 'role', 'status', 'created_at', 'updated_at', 'last_login')
+                const offset = page * limit
+                result = await db('users')
+                    .select(
+                        'id',
+                        'email',
+                        'username',
+                        'google_id',
+                        'role',
+                        'status',
+                        'created_at',
+                        'updated_at',
+                        'last_login',
+                    )
                     .limit(limit)
-                    .offset(offset);
+                    .offset(offset)
                 break
             case 'id':
                 result = await db.select().from('users').where('id', '=', data)
@@ -219,7 +233,7 @@ export const loginUserService = async (signUser) => {
     }
 }
 
-export const forgetPasswordService = async (email) =>{
+export const forgetPasswordService = async (email) => {
     try {
         const currentEmail = await getUserService('email', email)
     } catch (error) {

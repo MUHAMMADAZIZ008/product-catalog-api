@@ -22,9 +22,9 @@ export const createUserController = async (req, res, next) => {
 
 export const getAllUserController = async (req, res, next) => {
     try {
-        const {page, limit} = req.query
+        const { page, limit } = req.query
         const allData = await getUserService('all', '', +page, +limit)
-        
+
         return res.status(200).send({
             message: 'success',
             data: allData,

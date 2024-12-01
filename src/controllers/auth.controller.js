@@ -43,9 +43,9 @@ export const loginController = async (req, res, next) => {
     }
 }
 
-export const forgetPasswordController = async (req, res, next) =>{
+export const forgetPasswordController = async (req, res, next) => {
     try {
-        const {email} = req.body
+        const { email } = req.body
         const returResult = forgetPasswordService(email)
     } catch (error) {
         logger.error(error.message)
