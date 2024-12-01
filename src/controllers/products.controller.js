@@ -46,9 +46,8 @@ export const getoneProductController = async (req, res, next) => {
             return res
                 .status(404)
                 .send({ status: 'Not Found', message: 'No product found' })
-
         }
-        
+
         return res.status(200).send({ Status: 'Success', product })
     } catch (error) {
         next(error)

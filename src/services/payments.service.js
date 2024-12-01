@@ -18,7 +18,10 @@ export const paymentsService = {
 
     getById: async (id) => {
         try {
-            const payment = await db('payments').select('*').where({ id }).first()
+            const payment = await db('payments')
+                .select('*')
+                .where({ id })
+                .first()
             if (!payment) throw new AppError('Payment not found', 404)
             return payment
         } catch (error) {
@@ -28,7 +31,9 @@ export const paymentsService = {
 
     create: async (paymentData) => {
         try {
-            const [newPayment] = await db('payments').insert(paymentData).returning('*')
+            const [newPayment] = await db('payments')
+                .insert(paymentData)
+                .returning('*')
             return newPayment
         } catch (error) {
             throw new AppError('Error creating payment', 500)
@@ -42,7 +47,8 @@ export const paymentsService = {
                 .update(updateData)
                 .returning('*')
 
-            if (!updatedPayment) throw new AppError('Payment not found or failed to update', 404)
+            if (!updatedPayment)
+                throw new AppError('Payment not found or failed to update', 404)
 
             return updatedPayment
         } catch (error) {
@@ -57,7 +63,8 @@ export const paymentsService = {
                 .del()
                 .returning('*')
 
-            if (!deletedPayment.length) throw new AppError('Payment not found or failed to delete', 404)
+            if (!deletedPayment.length)
+                throw new AppError('Payment not found or failed to delete', 404)
 
             return deletedPayment[0]
         } catch (error) {

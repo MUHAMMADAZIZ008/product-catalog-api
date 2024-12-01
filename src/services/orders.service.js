@@ -28,7 +28,9 @@ export const ordersService = {
 
     create: async (orderData) => {
         try {
-            const [newOrder] = await db('orders').insert(orderData).returning('*')
+            const [newOrder] = await db('orders')
+                .insert(orderData)
+                .returning('*')
             return newOrder
         } catch (error) {
             throw new AppError('Error creating order', 500)
@@ -42,7 +44,8 @@ export const ordersService = {
                 .update(updateData)
                 .returning('*')
 
-            if (!updatedOrder) throw new AppError('Order not found to update', 404)
+            if (!updatedOrder)
+                throw new AppError('Order not found to update', 404)
 
             return updatedOrder
         } catch (error) {
@@ -57,7 +60,8 @@ export const ordersService = {
                 .del()
                 .returning('*')
 
-            if (!deletedOrder.length) throw new AppError('Order not found to delete', 404)
+            if (!deletedOrder.length)
+                throw new AppError('Order not found to delete', 404)
 
             return deletedOrder[0]
         } catch (error) {

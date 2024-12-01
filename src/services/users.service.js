@@ -2,6 +2,7 @@ import knex from 'knex'
 
 import {
     AppError,
+    comparePassword,
     createAcessAndRefresh,
     createBcrypt,
     logger,
@@ -180,9 +181,19 @@ export const otpService = async (otp) => {
 export const loginUserService = async (signUser) => {
     try {
         const currentUser = await getUserService('username', signUser.username)
-        if (!currentUser || currentUser[0].passowrd !== signUser.passowrd) {
+
+        if (currentUser.length === 0) {
             throw new AppError('Incorrect username or passowrd', 401)
         }
+
+        //check password
+        const checkPassowrd = await comparePassword(
+            signUser.password,
+            currentUser[0].password,
+        )
+        if (!checkPassowrd)
+            throw new AppError('Incorrect username or passowrd', 401)
+
         if (currentUser[0].status !== 'active') {
             throw new AppError('you are not active!')
         }
@@ -191,6 +202,13 @@ export const loginUserService = async (signUser) => {
             email: currentUser[0].email,
             role: currentUser[0].role,
         }
+
+        //update last login
+        const loginDate = new Date()
+        await db('users')
+            .where('id', '=', currentUser[0].id)
+            .update({ last_login: loginDate })
+
         const tokens = await createAcessAndRefresh(payload)
         return tokens
     } catch (error) {
