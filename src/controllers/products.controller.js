@@ -40,7 +40,6 @@ export const getoneProductController = async (req, res, next) => {
 
         const product = await getProductService('id', id)
 
-
         if (!product) {
             return res
                 .status(404)
