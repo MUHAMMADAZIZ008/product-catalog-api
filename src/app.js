@@ -1,7 +1,7 @@
 import express from 'express'
 import morgan from 'morgan'
-import cors from "cors"
-import helmet from "helmet"
+import cors from 'cors'
+import helmet from 'helmet'
 import rateLimit from 'express-rate-limit'
 
 import { routers } from './routers/index.js'
@@ -10,12 +10,12 @@ import { logger } from './utils/logger.js'
 const app = express()
 
 const limiter = rateLimit({
-    windowMs: 10*60*1000,
-    max:100,
-    message:"Too many requests froim this IP address"
+    windowMs: 10 * 60 * 1000,
+    max: 100,
+    message: 'Too many requests froim this IP address',
 })
 
-//third-party middlewares 
+//third-party middlewares
 app.use(express.json())
 app.use(limiter)
 app.use(morgan('dev'))
@@ -41,7 +41,7 @@ app.use((err, req, res, next) => {
     })
 })
 
-//unhandlede rejection and uncaught exception lar 
+//unhandlede rejection and uncaught exception lar
 process.on('uncaughtException', (err) => {
     logger.error(err.message)
     process.exit(1)

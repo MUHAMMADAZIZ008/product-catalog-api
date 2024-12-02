@@ -8,6 +8,10 @@ export const profileRouter = Router()
 profileRouter.get('/', profilesController.getAll)
 profileRouter.get('/:id', profilesController.getById)
 profileRouter.get('/user/:user_id', profilesController.getByUserId)
-profileRouter.post('/', checkValidatons(profileSchema), profilesController.create)
+profileRouter.post(
+    '/',
+    checkValidatons(profileSchema),
+    profilesController.create,
+)
 profileRouter.put('/:id', profilesController.update)
 profileRouter.delete('/:id', profilesController.delete)

@@ -46,8 +46,7 @@ export const priceHistoryService = {
             const history = await db('price_history')
                 .select('*')
                 .where({ modified_by_user_id: userId })
-            if (!history.length)
-                throw new AppError('No  found ', 404)
+            if (!history.length) throw new AppError('No  found ', 404)
             return history
         } catch (error) {
             throw new AppError('Error fetching price history', 500)
@@ -72,10 +71,7 @@ export const priceHistoryService = {
                 .update(updateData)
                 .returning('*')
             if (!updatedHistory)
-                throw new AppError(
-                    'Price history not found to update',
-                    404,
-                )
+                throw new AppError('Price history not found to update', 404)
             return updatedHistory
         } catch (error) {
             throw new AppError('Error updating price history entry', 500)
@@ -89,10 +85,7 @@ export const priceHistoryService = {
                 .del()
                 .returning('*')
             if (!deletedHistory.length)
-                throw new AppError(
-                    'Price history not found to delete',
-                    404,
-                )
+                throw new AppError('Price history not found to delete', 404)
             return deletedHistory[0]
         } catch (error) {
             throw new AppError('Error deleting price history', 500)

@@ -8,6 +8,10 @@ export const order_itemRouter = express.Router()
 order_itemRouter.get('/', orderItemsController.getAll)
 order_itemRouter.get('/:id', orderItemsController.getById)
 order_itemRouter.get('/order/:orderId', orderItemsController.getByOrderId)
-order_itemRouter.post('/',checkValidatons(orderItemSchema),orderItemsController.create)
+order_itemRouter.post(
+    '/',
+    checkValidatons(orderItemSchema),
+    orderItemsController.create,
+)
 order_itemRouter.put('/:id', orderItemsController.update)
 order_itemRouter.delete('/:id', orderItemsController.delete)
