@@ -15,7 +15,7 @@ export const createAcessAndRefresh = (user) => {
     }
 }
 
-export const forgetPasswordToken = (user) =>{
+export const forgetPasswordToken = (user) => {
     const forget_token = jwt.sign(user, config.token.forget.secret, {
         expiresIn: config.token.forget.exprisIn,
     })

@@ -18,16 +18,26 @@ export const userSchema = z.object({
         .regex(/[0-9]/, {
             message: 'Password must contain at least one number',
         }),
-    role: z.enum(['admin', 'user', 'moderator'], {
-        message: 'Invalid role value',
-    }).default('user'),
-    status: z.enum(['active', 'inactive', 'banned'], {
-        message: 'Invalid status value',
-    }).default('inactive'),
-    created_at: z.string().datetime({ message: 'Invalid datetime format' }).optional(),
+    role: z
+        .enum(['admin', 'user', 'moderator'], {
+            message: 'Invalid role value',
+        })
+        .default('user'),
+    status: z
+        .enum(['active', 'inactive', 'banned'], {
+            message: 'Invalid status value',
+        })
+        .default('inactive'),
+    created_at: z
+        .string()
+        .datetime({ message: 'Invalid datetime format' })
+        .optional(),
     last_login: z
         .string()
         .datetime({ message: 'Invalid datetime format' })
         .optional(),
-    updated_at: z.string().datetime({ message: 'Invalid datetime format' }).optional(),
+    updated_at: z
+        .string()
+        .datetime({ message: 'Invalid datetime format' })
+        .optional(),
 })

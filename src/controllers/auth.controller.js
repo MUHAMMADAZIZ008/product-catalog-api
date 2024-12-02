@@ -1,4 +1,10 @@
-import { authService, forgetPasswordService, loginUserService, otpService, resetPasswordService } from '../services/index.js'
+import {
+    authService,
+    forgetPasswordService,
+    loginUserService,
+    otpService,
+    resetPasswordService,
+} from '../services/index.js'
 import { logger } from '../utils/index.js'
 
 export const registerContrloller = async (req, res, next) => {
@@ -48,21 +54,21 @@ export const forgetPasswordController = async (req, res, next) => {
         const { email } = req.body
         const returResult = forgetPasswordService(email)
         return res.status(200).send({
-            message: 'link is sent to your email'
+            message: 'link is sent to your email',
         })
     } catch (error) {
         logger.error(error.message)
         next(error)
     }
 }
-export const resetPasswordController = (req, res, next) =>{
+export const resetPasswordController = (req, res, next) => {
     try {
-        const {token} = req.query
-        const {password} = req.body
+        const { token } = req.query
+        const { password } = req.body
         const updatedPassword = resetPasswordService(token, password)
         return res.status(200).send({
             message: 'succes',
-            updatedPassword
+            updatedPassword,
         })
     } catch (error) {
         logger.error(error.message)
