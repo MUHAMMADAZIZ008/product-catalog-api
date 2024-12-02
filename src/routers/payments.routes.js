@@ -9,9 +9,15 @@ paymentsRouter.get('/', paymentsController.getAll)
 paymentsRouter.get('/:id', paymentsController.getById)
 paymentsRouter.post(
     '/',
-    authGuard, roleGuard(['admin']),
+    authGuard,
+    roleGuard(['admin']),
     checkValidatons(paymentBodySchema),
     paymentsController.create,
 )
-paymentsRouter.put('/:id', authGuard, roleGuard(['admin']), paymentsController.update)
+paymentsRouter.put(
+    '/:id',
+    authGuard,
+    roleGuard(['admin']),
+    paymentsController.update,
+)
 paymentsRouter.delete('/:id', paymentsController.delete)

@@ -15,5 +15,15 @@ order_itemRouter.post(
     checkValidatons(orderItemSchema),
     orderItemsController.create,
 )
-order_itemRouter.put('/:id', authGuard, roleGuard(['user', 'admin']), orderItemsController.update)
-order_itemRouter.delete('/:id', authGuard, roleGuard(['user', 'admin']), orderItemsController.delete)
+order_itemRouter.put(
+    '/:id',
+    authGuard,
+    roleGuard(['user', 'admin']),
+    orderItemsController.update,
+)
+order_itemRouter.delete(
+    '/:id',
+    authGuard,
+    roleGuard(['user', 'admin']),
+    orderItemsController.delete,
+)
