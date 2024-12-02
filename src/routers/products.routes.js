@@ -16,7 +16,7 @@ productRouter.get('/:id', getoneProductController)
 productRouter.post(
     '/',
     authGuard,
-    roleGuard(['admin', 'manager']),
+    roleGuard(['user', 'admin', 'manager']),
     checkValidatons(productSchema),
     createProductController,
 )
