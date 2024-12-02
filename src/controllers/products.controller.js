@@ -36,10 +36,7 @@ export const getallProductController = async (req, res, next) => {
 export const getoneProductController = async (req, res, next) => {
     try {
         const id = req.params.id
-        const category = await db('products')
-            .select('*')
-            .limit(limit)
-            .offset(skip)
+        const product = await getProductService("id",id)
 
         if (!product) {
             return res
