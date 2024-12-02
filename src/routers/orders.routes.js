@@ -4,6 +4,7 @@ import { authGuard, checkValidatons, roleGuard } from '../middlewares/index.js'
 import { orderBodySchema } from '../validations/index.js'
 
 export const orderRouter = express.Router()
+const secret = config.token.access.secret
 
 orderRouter.get('/', ordersController.getAll)
 orderRouter.get(

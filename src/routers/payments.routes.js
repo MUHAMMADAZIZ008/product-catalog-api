@@ -5,19 +5,21 @@ import { paymentBodySchema } from '../validations/index.js'
 
 export const paymentsRouter = express.Router()
 
+const secret = config.token.access.secret
+
 paymentsRouter.get('/', paymentsController.getAll)
 paymentsRouter.get('/:id', paymentsController.getById)
 paymentsRouter.post(
     '/',
-    authGuard,
+    authGuard(secret),
     roleGuard(['admin']),
     checkValidatons(paymentBodySchema),
     paymentsController.create,
 )
 paymentsRouter.put(
     '/:id',
-    authGuard,
+    authGuard(secret),
     roleGuard(['admin']),
     paymentsController.update,
 )
-paymentsRouter.delete('/:id', paymentsController.delete)
+paymentsRouter.delete('/:id', authGuard(secret), roleGuard(['admin']),paymentsController.delete)
