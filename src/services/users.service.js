@@ -3,11 +3,14 @@ import {
     comparePassword,
     createAcessAndRefresh,
     createBcrypt,
+    forgetPasswordToken,
     logger,
     otpGenerator,
     sendMail,
+    verifyToken,
 } from '../utils/index.js'
 import db from '../database/index.js'
+import { config } from '../configs/index.js'
 
 export const getUserService = async (
     type,
@@ -36,6 +39,7 @@ export const getUserService = async (
                     .offset(offset)
                 break
             case 'id':
+                
                 result = await db.select().from('users').where('id', '=', data)
                 break
             case 'email':
@@ -235,8 +239,55 @@ export const loginUserService = async (signUser) => {
 
 export const forgetPasswordService = async (email) => {
     try {
-        const currentEmail = await getUserService('email', email)
+        const currentUser = await getUserService('email', email)
+        if(currentUser.length === 0){
+            throw new AppError('email not found', 404)
+        }
+        const payload = {
+            id: currentUser[0].id,
+            email: currentUser[0].email
+        }
+        const forget_token = await forgetPasswordToken(payload)
+        const now = new Date(); // Hozirgi vaqt
+        const twoMinuteLater = new Date(now.getTime() + 2 * 60 * 1000);
+        await db('password_resets').insert({
+            user_id: currentUser[0].id,
+            token: forget_token,
+            expires_at: twoMinuteLater
+        })
+        const resetPasswordApi = `http://localhost:3000/api/v1/auth/reset-password?token=${forget_token}`
+        await sendMail(email, 'RESET PASSWORD', resetPasswordApi)
+        return true
     } catch (error) {
         throw new AppError(error, 500)
+    }
+}
+
+export const resetPasswordService = async(token, newPassword) =>{
+    try {
+        const decode = await verifyToken(token, config.token.forget.secret)
+        
+        if (!decode) {
+            throw new AppError('Invalid or expired token', 401)
+        }
+        
+        
+        const changeUser = await db('password_resets').where('user_id', '=', decode.id)
+        if(changeUser.length === 0){
+            throw new AppError('user not found', 404)
+        }
+        const currentDate = new Date()
+        if(changeUser.expires_at < currentDate){
+            throw new AppError('token is invalid', 403)
+        }
+        
+        const hashPassowrd = await createBcrypt(newPassword)
+        
+        const updatedPassword = await db('users').where('id', '=', decode.id).update({
+            password: hashPassowrd
+        }).returning('*')
+        return updatedPassword
+    } catch (error) {
+        throw new AppError(error.message, 500)
     }
 }

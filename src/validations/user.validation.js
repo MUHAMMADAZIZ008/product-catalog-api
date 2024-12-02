@@ -20,14 +20,14 @@ export const userSchema = z.object({
         }),
     role: z.enum(['admin', 'user', 'moderator'], {
         message: 'Invalid role value',
-    }),
+    }).default('user'),
     status: z.enum(['active', 'inactive', 'banned'], {
         message: 'Invalid status value',
-    }),
-    created_at: z.string().datetime({ message: 'Invalid datetime format' }),
+    }).default('inactive'),
+    created_at: z.string().datetime({ message: 'Invalid datetime format' }).optional(),
     last_login: z
         .string()
         .datetime({ message: 'Invalid datetime format' })
         .optional(),
-    updated_at: z.string().datetime({ message: 'Invalid datetime format' }),
+    updated_at: z.string().datetime({ message: 'Invalid datetime format' }).optional(),
 })
