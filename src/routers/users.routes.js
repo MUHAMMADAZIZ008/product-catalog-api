@@ -9,6 +9,7 @@ import {
 } from '../controllers/index.js'
 import { userSchema } from '../validations/index.js'
 import { authGuard, checkValidatons, roleGuard } from '../middlewares/index.js'
+import { config } from '../configs/index.js'
 
 export const usersRouter = new Router()
 const secret = config.token.access.secret

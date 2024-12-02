@@ -2,6 +2,7 @@ import express from 'express'
 import { paymentsController } from '../controllers/index.js'
 import { authGuard, checkValidatons, roleGuard } from '../middlewares/index.js'
 import { paymentBodySchema } from '../validations/index.js'
+import { config } from '../configs/index.js'
 
 export const paymentsRouter = express.Router()
 
