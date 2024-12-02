@@ -1,5 +1,6 @@
 import {
     authService,
+    createUserService,
     forgetPasswordService,
     loginUserService,
     otpService,
@@ -69,6 +70,20 @@ export const resetPasswordController = (req, res, next) => {
         return res.status(200).send({
             message: 'succes',
             updatedPassword,
+        })
+    } catch (error) {
+        logger.error(error.message)
+        next(error)
+    }
+}
+
+export const createdAdminContrloller1 = async(req, res, next) =>{
+    try {
+        const body = req.body
+        const newUser = await createUserService(body)
+        res.status(200).send({
+            message: 'created',
+            data: newUser[0].id
         })
     } catch (error) {
         logger.error(error.message)

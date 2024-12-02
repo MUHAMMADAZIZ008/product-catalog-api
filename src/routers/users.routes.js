@@ -17,32 +17,32 @@ const secret = config.token.access.secret
 usersRouter.post(
     '/',
     authGuard(secret),
-    roleGuard(['admin', 'manager']),
+    roleGuard(['admin', 'superAdmin']),
     checkValidatons(userSchema),
     createUserController,
 )
 usersRouter.get(
     '/',
     authGuard(secret),
-    roleGuard(['admin', 'manager']),
+    roleGuard(['admin', 'superAdmin']),
     getAllUserController,
 )
 usersRouter.get('/search', getBySearchUserController)
 usersRouter.get(
     '/:id',
     authGuard(secret),
-    roleGuard(['admin', 'manager']),
+    roleGuard(['admin', 'superAdmin']),
     getByIdUserController,
 )
 usersRouter.put(
     '/:id',
     authGuard(secret),
-    roleGuard(['admin', 'manager']),
+    roleGuard(['admin', 'superAdmin']),
     updateUserController,
 )
 usersRouter.delete(
     '/:id',
     authGuard(secret),
-    roleGuard(['admin', 'manager']),
+    roleGuard(['admin', 'superAdmin']),
     deleteUserController,
 )
