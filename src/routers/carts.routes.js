@@ -13,7 +13,7 @@ import { config } from '../configs/index.js'
 export const cartsRouter = new Router()
 
 const secret = config.token.access.secret
-const role = ['admin', 'manager']
+const role = ['admin', 'manager', 'superAdmin']
 
 cartsRouter.post(
     '/',

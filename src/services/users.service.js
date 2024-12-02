@@ -66,6 +66,8 @@ export const getUserService = async (
 export const createUserService = async (user) => {
     try {
         const currentEmail = await getUserService('email', user.email)
+        console.log(currentEmail)
+
         if (currentEmail.length !== 0) {
             throw new AppError('email already exists', 403)
         }
@@ -137,6 +139,13 @@ export const daleteUserService = async (id) => {
 export const authService = async (user) => {
     return db.transaction(async (trx) => {
         try {
+            const dontAllowed = ['admin', 'superAdmin', 'manager']
+            if (dontAllowed.includes(user.role)) {
+                throw new AppError(
+                    'Access denied: insufficient permissions',
+                    403,
+                )
+            }
             const otp = otpGenerator
 
             const newUser = await createUserService(user)
@@ -200,10 +209,21 @@ export const otpService = async (otp) => {
 
 export const loginUserService = async (signUser) => {
     try {
-        const currentUser = await getUserService('username', signUser.username)
+        let currentUser
 
-        if (currentUser.length === 0) {
+        const currentEmail = await getUserService('email', signUser.login_user)
+        const currentUsername = await getUserService(
+            'username',
+            signUser.login_user,
+        )
+
+        if (currentEmail.length === 0 && currentUsername.length === 0) {
             throw new AppError('Incorrect username or passowrd', 401)
+        }
+        if (currentEmail.length === 0) {
+            currentUser = currentUsername
+        } else if (currentUsername.length === 0) {
+            currentUser = currentEmail
         }
 
         //check password
