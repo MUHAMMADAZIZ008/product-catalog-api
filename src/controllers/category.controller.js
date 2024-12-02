@@ -12,10 +12,10 @@ export const getallCategoryController = async (req, res, next) => {
         const skip = (page - 1) * limit
 
         const categories = await db('categories')
-        .select('*')
+            .select('*')
             .limit(limit)
             .offset(skip)
-        
+
         const allCategory = await getCategorySevice('all')
         return res.status(200).send({
             message: 'success',

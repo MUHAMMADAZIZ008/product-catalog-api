@@ -4,7 +4,6 @@ import { AppError } from '../utils/index.js'
 export const getCategorySevice = async (type, data = '') => {
     try {
         let result
-         
 
         switch (type) {
             case 'all':
