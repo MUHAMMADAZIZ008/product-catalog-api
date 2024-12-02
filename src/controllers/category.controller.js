@@ -7,14 +7,14 @@ import {
 
 export const getallCategoryController = async (req, res, next) => {
     try {
-        const page = parseInt(req.query.page) || 1
-        const limit = parseInt(req.query.limit) || 10
-        const skip = (page - 1) * limit
+        // const page = parseInt(req.query.page) || 1
+        // const limit = parseInt(req.query.limit) || 10
+        // const skip = (page - 1) * limit
 
-        const categories = await db('categories')
-            .select('*')
-            .limit(limit)
-            .offset(skip)
+        // const categories = await db('categories')
+        //     .select('*')
+        //     .limit(limit)
+        //     .offset(skip)
 
         const allCategory = await getCategorySevice('all')
         return res.status(200).send({
