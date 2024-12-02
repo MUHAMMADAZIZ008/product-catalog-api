@@ -11,9 +11,5 @@ export const categorySchema = z.object({
         .refine((val) => typeof val === 'string', {
             message: '"description" matn bo\'lishi kerak',
         }),
-    tag: z
-        .string()
-        .max(255, '"tag" 255 belgidan oshmasligi kerak')
-        .optional(),
+    tag: z.string().max(255, '"tag" 255 belgidan oshmasligi kerak').optional(),
 })
-

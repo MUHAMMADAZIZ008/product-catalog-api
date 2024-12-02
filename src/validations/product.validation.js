@@ -26,5 +26,3 @@ export const productSchema = z.object({
     created_at: z.string().optional(),
     updated_at: z.string().optional(),
 })
-
-

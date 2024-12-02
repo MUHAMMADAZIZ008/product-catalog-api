@@ -6,7 +6,7 @@ import {
     getoneProductController,
     updateProductController,
 } from '../controllers/index.js'
-import {checkValidatons} from "../middlewares/index.js"
+import { checkValidatons } from '../middlewares/index.js'
 import { productSchema } from '../validations/index.js'
 
 export const productRouter = Router()

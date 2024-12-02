@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from 'zod'
 
 export const reviewSchema = z.object({
     id: z.string().uuid().optional(),
@@ -17,5 +17,5 @@ export const reviewSchema = z.object({
         .max(10, {
             message: 'Rating limit is 10',
         }),
-    text: z.string().optional(), 
-});
+    text: z.string().optional(),
+})
