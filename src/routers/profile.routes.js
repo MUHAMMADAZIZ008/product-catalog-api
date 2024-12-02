@@ -1,17 +1,29 @@
 import { Router } from 'express'
 import { profilesController } from '../controllers/index.js'
-import { checkValidatons } from '../middlewares/index.js'
+import { checkValidatons, authGuard, roleGuard } from '../middlewares/index.js'
 import { profileSchema } from '../validations/index.js'
 
 export const profileRouter = Router()
 
 profileRouter.get('/', profilesController.getAll)
 profileRouter.get('/:id', profilesController.getById)
-profileRouter.get('/user/:user_id', profilesController.getByUserId)
+profileRouter.get(
+    '/user/:user_id',
+    authGuard,
+    roleGuard(['user', 'admin', 'manager']),
+    profilesController.getByUserId,
+)
 profileRouter.post(
     '/',
+    authGuard,
+    roleGuard(['user', 'admin', 'manager']),
     checkValidatons(profileSchema),
     profilesController.create,
 )
 profileRouter.put('/:id', profilesController.update)
-profileRouter.delete('/:id', profilesController.delete)
+profileRouter.delete(
+    '/:id',
+    authGuard,
+    roleGuard(['admin', 'manager']),
+    profilesController.delete,
+)

@@ -5,20 +5,20 @@ export const productSchema = z.object({
     name: z
         .string()
         .min(1, '"name" majburiy maydon')
-        .nonempty('"name" bo\'sh bo\'lishi mumkin emas'),
+        .nonempty('"name" bosh bolishi mumkin emas'),
     short_description: z.string().optional(),
     full_description: z.string().optional(),
     category_id: z.string().uuid().optional(),
     seller_id: z.string().uuid().optional(),
     price: z
         .number()
-        .min(0, '"price" musbat raqam bo\'lishi kerak')
-        .nonnegative('"price" 0 dan kichik bo\'lmasligi kerak'),
+        .min(0, '"price" musbat raqam bolishi kerak')
+        .nonnegative('"price" 0 dan kichik bolmasligi kerak'),
     discount_price: z
         .number()
         .optional()
         .refine((val) => val === undefined || val >= 0, {
-            message: '"discount_price" 0 dan kichik bo\'lmasligi kerak',
+            message: '"discount_price" 0 dan kichik bolmasligi kerak',
         }),
     quantity: z.number().int().nonnegative().default(0),
     status: z.enum(['active', 'sold', 'on_sale']).default('active'),
@@ -26,7 +26,3 @@ export const productSchema = z.object({
     created_at: z.string().optional(),
     updated_at: z.string().optional(),
 })
-
-const validateProduct = (product) => {
-    return productSchema.safeParse(product)
-}
