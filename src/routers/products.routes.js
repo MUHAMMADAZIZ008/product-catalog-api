@@ -8,6 +8,7 @@ import {
 } from '../controllers/index.js'
 import { checkValidatons, authGuard, roleGuard } from '../middlewares/index.js'
 import { productSchema } from '../validations/index.js'
+import { config } from '../configs/index.js'
 
 export const productRouter = Router()
 const secret = config.token.access.secret

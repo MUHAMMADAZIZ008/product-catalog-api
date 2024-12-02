@@ -2,6 +2,7 @@ import { Router } from 'express'
 import { profilesController } from '../controllers/index.js'
 import { checkValidatons, authGuard, roleGuard } from '../middlewares/index.js'
 import { profileSchema } from '../validations/index.js'
+import { config } from '../configs/index.js'
 
 export const profileRouter = Router()
 const secret = config.token.access.secret

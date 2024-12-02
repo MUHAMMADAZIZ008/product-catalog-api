@@ -2,7 +2,7 @@ import express from 'express'
 import { orderItemsController } from '../controllers/index.js'
 import { authGuard, checkValidatons, roleGuard } from '../middlewares/index.js'
 import { orderItemSchema } from '../validations/index.js'
-import { config } from 'dotenv'
+import { config } from '../configs/index.js'
 
 export const order_itemRouter = express.Router()
 const secret = config.token.access.secret

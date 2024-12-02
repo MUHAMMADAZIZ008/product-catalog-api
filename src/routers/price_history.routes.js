@@ -2,6 +2,7 @@ import { Router } from 'express'
 import { priceHistoryController } from '../controllers/index.js'
 import { checkValidatons, authGuard, roleGuard } from '../middlewares/index.js'
 import { priceHistorySchema } from '../validations/index.js'
+import { config } from '../configs/index.js'
 
 export const priceHistoryRouter = Router()
 const secret = config.token.access.secret
