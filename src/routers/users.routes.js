@@ -12,9 +12,35 @@ import { authGuard, checkValidatons, roleGuard } from '../middlewares/index.js'
 
 export const usersRouter = new Router()
 
-usersRouter.post('/',authGuard, roleGuard(['admin','manager']), checkValidatons(userSchema), createUserController)
-usersRouter.get('/',authGuard, roleGuard(['admin','manager']), getAllUserController)
+usersRouter.post(
+    '/',
+    authGuard,
+    roleGuard(['admin', 'manager']),
+    checkValidatons(userSchema),
+    createUserController,
+)
+usersRouter.get(
+    '/',
+    authGuard,
+    roleGuard(['admin', 'manager']),
+    getAllUserController,
+)
 usersRouter.get('/search', getBySearchUserController)
-usersRouter.get('/:id',authGuard, roleGuard(['admin','manager']), getByIdUserController)
-usersRouter.put('/:id',authGuard, roleGuard(['admin','manager']), updateUserController)
-usersRouter.delete('/:id',authGuard, roleGuard(['admin','manager']), deleteUserController)
+usersRouter.get(
+    '/:id',
+    authGuard,
+    roleGuard(['admin', 'manager']),
+    getByIdUserController,
+)
+usersRouter.put(
+    '/:id',
+    authGuard,
+    roleGuard(['admin', 'manager']),
+    updateUserController,
+)
+usersRouter.delete(
+    '/:id',
+    authGuard,
+    roleGuard(['admin', 'manager']),
+    deleteUserController,
+)
