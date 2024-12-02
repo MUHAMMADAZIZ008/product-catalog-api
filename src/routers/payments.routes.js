@@ -22,4 +22,9 @@ paymentsRouter.put(
     roleGuard(['admin']),
     paymentsController.update,
 )
-paymentsRouter.delete('/:id', authGuard(secret), roleGuard(['admin']),paymentsController.delete)
+paymentsRouter.delete(
+    '/:id',
+    authGuard(secret),
+    roleGuard(['admin']),
+    paymentsController.delete,
+)

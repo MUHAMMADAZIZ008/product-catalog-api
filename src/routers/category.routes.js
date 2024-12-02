@@ -14,7 +14,6 @@ export const categoryRouter = Router()
 
 const secret = config.token.access.secret
 
-
 categoryRouter.get('/', getallCategoryController)
 categoryRouter.get('/:id', getoneCategoryController)
 categoryRouter.post(
@@ -24,5 +23,15 @@ categoryRouter.post(
     checkValidatons(categorySchema),
     createCategoryController,
 )
-categoryRouter.put('/:id', authGuard(secret), roleGuard(['admin']), updateCategoryController)
-categoryRouter.delete('/:id', authGuard(secret), roleGuard(['admin']), deleteCategoryController)
+categoryRouter.put(
+    '/:id',
+    authGuard(secret),
+    roleGuard(['admin']),
+    updateCategoryController,
+)
+categoryRouter.delete(
+    '/:id',
+    authGuard(secret),
+    roleGuard(['admin']),
+    deleteCategoryController,
+)
