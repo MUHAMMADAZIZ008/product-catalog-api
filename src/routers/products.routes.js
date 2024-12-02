@@ -10,25 +10,26 @@ import { checkValidatons, authGuard, roleGuard } from '../middlewares/index.js'
 import { productSchema } from '../validations/index.js'
 
 export const productRouter = Router()
+const secret = config.token.access.secret
 
 productRouter.get('/', getallProductController)
 productRouter.get('/:id', getoneProductController)
 productRouter.post(
     '/',
-    authGuard,
+    authGuard(secret),
     roleGuard(['user', 'admin', 'manager']),
     checkValidatons(productSchema),
     createProductController,
 )
 productRouter.put(
     '/:id',
-    authGuard,
+    authGuard(secret),
     roleGuard(['admin', 'manager']),
     updateProductController,
 )
 productRouter.delete(
     '/:id',
-    authGuard,
+    authGuard(secret),
     roleGuard(['admin', 'manager']),
     deleteProductController,
 )

@@ -10,25 +10,26 @@ import { checkValidatons, authGuard, roleGuard } from '../middlewares/index.js'
 import { reviewSchema } from '../validations/index.js'
 
 export const reviewRouter = Router()
+const secret = config.token.access.secret
 
 reviewRouter.get('/', getAllReviewController)
 reviewRouter.get('/:id', getOneReviewController)
 reviewRouter.post(
     '/',
-    authGuard,
+    authGuard(secret),
     roleGuard(['user', 'admin', 'manager']),
     checkValidatons(reviewSchema),
     createReviewController,
 )
 reviewRouter.put(
     '/:id',
-    authGuard,
+    authGuard(secret),
     roleGuard(['admin', 'manager']),
     updateReviewController,
 )
 reviewRouter.delete(
     '/:id',
-    authGuard,
+    authGuard(secret),
     roleGuard(['admin', 'manager']),
     deleteReviewController,
 )
