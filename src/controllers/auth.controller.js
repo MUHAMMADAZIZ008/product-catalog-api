@@ -77,13 +77,13 @@ export const resetPasswordController = (req, res, next) => {
     }
 }
 
-export const createdAdminContrloller1 = async(req, res, next) =>{
+export const createdAdminContrloller1 = async (req, res, next) => {
     try {
         const body = req.body
         const newUser = await createUserService(body)
         res.status(200).send({
             message: 'created',
-            data: newUser[0].id
+            data: newUser[0].id,
         })
     } catch (error) {
         logger.error(error.message)

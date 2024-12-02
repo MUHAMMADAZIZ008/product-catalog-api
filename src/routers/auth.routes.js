@@ -22,4 +22,10 @@ authRouter.post('/reset-password', resetPasswordController)
 
 //admin create
 const secret = config.token.access.secret
-authRouter.post('/create-admin', authGuard(secret), roleGuard(['admin', 'superAdmin']), checkValidatons(userSchema), createdAdminContrloller1)
+authRouter.post(
+    '/create-admin',
+    authGuard(secret),
+    roleGuard(['admin', 'superAdmin']),
+    checkValidatons(userSchema),
+    createdAdminContrloller1,
+)
