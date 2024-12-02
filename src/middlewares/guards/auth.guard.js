@@ -12,7 +12,7 @@ export const authGuard = (secret) => {
             }
 
             const token = authHeader.split(' ')[1]
-            //chaqigan joyingizdan secret ni berasizlar secret config da
+            //chaqirgan joyingizdan secret ni berasizlar secret config da
             const decode = verifyToken(token, secret)
             if (!decode) {
                 return res.status(401).json({

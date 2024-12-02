@@ -7,6 +7,12 @@ settings:
 importers:
     .:
         dependencies:
+            '@logtail/node':
+                specifier: ^0.5.2
+                version: 0.5.2
+            '@logtail/winston':
+                specifier: ^0.5.2
+                version: 0.5.2(winston@3.17.0)
             bcrypt:
                 specifier: ^5.1.1
                 version: 5.1.1
@@ -28,6 +34,9 @@ importers:
             i:
                 specifier: ^0.3.7
                 version: 0.3.7
+            install:
+                specifier: ^0.13.0
+                version: 0.13.0
             json-web-token:
                 specifier: ^3.2.0
                 version: 3.2.0
@@ -194,12 +203,51 @@ packages:
             }
         engines: { node: '>=18.18' }
 
+    '@logtail/core@0.5.2':
+        resolution:
+            {
+                integrity: sha512-mkQqGFwtZ06x2xsj6kOiEZeLSlPeTDArNOEeB9Q1VHxduRHJFInG7soix8+P8xeaoJx+7itvbUySB0XBlnmLSA==,
+            }
+
+    '@logtail/node@0.5.2':
+        resolution:
+            {
+                integrity: sha512-pSleAsbq61WdaMzYkmW+kdCfptIWmjhSvNoyAtFFuaIGNXFS2UEmnHPrvzrPxsFgBswePSGl/m1teHTeBxA+qg==,
+            }
+
+    '@logtail/tools@0.5.2':
+        resolution:
+            {
+                integrity: sha512-1Vg0rznoDYXWYDkz8orjKNTjK5f2eUubHN6tfJ2hHKCRRHy7y+TJpIlCQg3BilVcOvMIfiy4RbrcaFTHvDQWTQ==,
+            }
+
+    '@logtail/types@0.5.2':
+        resolution:
+            {
+                integrity: sha512-G3C3XjJPW/LJS0+sanzsNLLqXHAJkhdBR8h4zFUylOtUOevtlneenGNZFjEil+h/GOb3tUySvBuP2wl51gvf0A==,
+            }
+
+    '@logtail/winston@0.5.2':
+        resolution:
+            {
+                integrity: sha512-eKbtw0RB1d0Cxs9qLxQskmcDjlyUolKJJluia0uNXK190SDavIY6VW/193BLSy5S7gn32V6T4kQ9yC0W6g9C9A==,
+            }
+        peerDependencies:
+            winston: '>=3.2.1'
+
     '@mapbox/node-pre-gyp@1.0.11':
         resolution:
             {
                 integrity: sha512-Yhlar6v9WQgUp/He7BdgzOz8lqMQ8sU+jkCq7Wx8Myc5YFJLbEe7lgui/V7G1qB1DJykHSGwreceSaD60Y0PUQ==,
             }
         hasBin: true
+
+    '@msgpack/msgpack@2.8.0':
+        resolution:
+            {
+                integrity: sha512-h9u4u/jiIRKbq25PM+zymTyW6bhTzELvOoUd+AvYriWOAKpLGnIamaET3pnHYoI5iYphAHBI4ayx0MehR+VVPQ==,
+            }
+        engines: { node: '>= 10' }
 
     '@pkgr/core@0.1.1':
         resolution:
@@ -218,6 +266,12 @@ packages:
         resolution:
             {
                 integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==,
+            }
+
+    '@types/stack-trace@0.0.33':
+        resolution:
+            {
+                integrity: sha512-O7in6531Bbvlb2KEsJ0dq0CHZvc3iWSR5ZYMtvGgnHA56VgriAN/AU2LorfmcvAl2xc9N5fbCTRyMRRl8nd74g==,
             }
 
     '@types/triple-beam@1.3.5':
@@ -393,6 +447,12 @@ packages:
         resolution:
             {
                 integrity: sha512-iCuPHDFgrHX7H2vEI/5xpz07zSHB00TpugqhmYtVmMO6518mCuRMoOYFldEBl0g187ufozdaHgWKcYFb61qGiA==,
+            }
+
+    brace-expansion@2.0.1:
+        resolution:
+            {
+                integrity: sha512-XnAIvQ8eM+kC6aULx6wuQiwVsnzsi9d3WxzV3FpWTGA19F621kwdbsAcFKXgKUHZWsy+mY6iL1sHTxWEFCytDA==,
             }
 
     braces@3.0.3:
@@ -599,6 +659,12 @@ packages:
                 integrity: sha512-KIHbLJqu73RGr/hnbrO9uBeixNGuvSQjul/jdFvS/KFSIH1hWVd1ng7zOHx+YrEfInLG7q4n6GHQ9cDtxv/P6g==,
             }
         engines: { node: '>= 0.10' }
+
+    cross-fetch@4.0.0:
+        resolution:
+            {
+                integrity: sha512-e4a5N8lVvuLgAWgnCrLr2PP0YyDOTHa9H/Rj54dirp61qXnNq46m82bRhNqIA5VccJtWBvPTFRV3TtvHUKPB1g==,
+            }
 
     cross-spawn@7.0.6:
         resolution:
@@ -1270,6 +1336,13 @@ packages:
                 integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==,
             }
 
+    install@0.13.0:
+        resolution:
+            {
+                integrity: sha512-zDml/jzr2PKU9I8J/xyZBQn8rPCAY//UOYNmR01XwNwyfhEWObo2SWfSl1+0tm1u6PhxLwDnfsT/6jB7OUxqFA==,
+            }
+        engines: { node: '>= 0.10' }
+
     interpret@2.2.0:
         resolution:
             {
@@ -1689,6 +1762,13 @@ packages:
             {
                 integrity: sha512-J7p63hRiAjw1NDEww1W7i37+ByIrOWO5XQQAzZ3VOcL0PNybwpfmV/N05zFAzwQ9USyEcX6t3UO+K5aqBQOIHw==,
             }
+
+    minimatch@9.0.5:
+        resolution:
+            {
+                integrity: sha512-G6T0ZX48xgozx7587koeX9Ys2NYy6Gmv//P89sEte9V9whIapMNF4idKxnW2QtCcLiTWlb/wfCabAtAFWhhBow==,
+            }
+        engines: { node: '>=16 || 14 >=14.17' }
 
     minipass@3.3.6:
         resolution:
@@ -2338,6 +2418,13 @@ packages:
             }
         engines: { node: '>=6.0.0' }
 
+    serialize-error@8.1.0:
+        resolution:
+            {
+                integrity: sha512-3NnuWfM6vBYoy5gZFvHiYsVbafvI9vZv/+jlIigFn4oP4zjNPK3LhcY0xSCgeb1a5L8jO71Mit9LlNoi2UfDDQ==,
+            }
+        engines: { node: '>=10' }
+
     serve-static@1.16.2:
         resolution:
             {
@@ -2602,6 +2689,13 @@ packages:
             }
         engines: { node: '>= 0.8.0' }
 
+    type-fest@0.20.2:
+        resolution:
+            {
+                integrity: sha512-Ne+eE4r0/iWnpAxD852z3A+N0Bt5RN//NjJwRd2VFHEmrywxf5vsZlh4R6lixl6B+wz/8d+maTSAkN1FIkI3LQ==,
+            }
+        engines: { node: '>=10' }
+
     type-is@1.6.18:
         resolution:
             {
@@ -2803,6 +2897,45 @@ snapshots:
 
     '@humanwhocodes/retry@0.4.1': {}
 
+    '@logtail/core@0.5.2':
+        dependencies:
+            '@logtail/tools': 0.5.2
+            '@logtail/types': 0.5.2
+            serialize-error: 8.1.0
+        transitivePeerDependencies:
+            - encoding
+
+    '@logtail/node@0.5.2':
+        dependencies:
+            '@logtail/core': 0.5.2
+            '@logtail/types': 0.5.2
+            '@msgpack/msgpack': 2.8.0
+            '@types/stack-trace': 0.0.33
+            cross-fetch: 4.0.0
+            minimatch: 9.0.5
+            serialize-error: 8.1.0
+            stack-trace: 0.0.10
+        transitivePeerDependencies:
+            - encoding
+
+    '@logtail/tools@0.5.2':
+        dependencies:
+            '@logtail/types': 0.5.2
+            cross-fetch: 4.0.0
+        transitivePeerDependencies:
+            - encoding
+
+    '@logtail/types@0.5.2': {}
+
+    '@logtail/winston@0.5.2(winston@3.17.0)':
+        dependencies:
+            '@logtail/node': 0.5.2
+            '@logtail/types': 0.5.2
+            winston: 3.17.0
+            winston-transport: 4.9.0
+        transitivePeerDependencies:
+            - encoding
+
     '@mapbox/node-pre-gyp@1.0.11':
         dependencies:
             detect-libc: 2.0.3
@@ -2818,11 +2951,15 @@ snapshots:
             - encoding
             - supports-color
 
+    '@msgpack/msgpack@2.8.0': {}
+
     '@pkgr/core@0.1.1': {}
 
     '@types/estree@1.0.6': {}
 
     '@types/json-schema@7.0.15': {}
+
+    '@types/stack-trace@0.0.33': {}
 
     '@types/triple-beam@1.3.5': {}
 
@@ -2925,6 +3062,10 @@ snapshots:
         dependencies:
             balanced-match: 1.0.2
             concat-map: 0.0.1
+
+    brace-expansion@2.0.1:
+        dependencies:
+            balanced-match: 1.0.2
 
     braces@3.0.3:
         dependencies:
@@ -3038,6 +3179,12 @@ snapshots:
         dependencies:
             object-assign: 4.1.1
             vary: 1.1.2
+
+    cross-fetch@4.0.0:
+        dependencies:
+            node-fetch: 2.7.0
+        transitivePeerDependencies:
+            - encoding
 
     cross-spawn@7.0.6:
         dependencies:
@@ -3427,6 +3574,8 @@ snapshots:
 
     inherits@2.0.4: {}
 
+    install@0.13.0: {}
+
     interpret@2.2.0: {}
 
     ipaddr.js@1.9.1: {}
@@ -3658,6 +3807,10 @@ snapshots:
     minimatch@3.1.2:
         dependencies:
             brace-expansion: 1.1.11
+
+    minimatch@9.0.5:
+        dependencies:
+            brace-expansion: 2.0.1
 
     minipass@3.3.6:
         dependencies:
@@ -3956,6 +4109,10 @@ snapshots:
             dkim-signer: 0.2.2
             mailcomposer: 3.12.0
 
+    serialize-error@8.1.0:
+        dependencies:
+            type-fest: 0.20.2
+
     serve-static@1.16.2:
         dependencies:
             encodeurl: 2.0.0
@@ -4096,6 +4253,8 @@ snapshots:
     type-check@0.4.0:
         dependencies:
             prelude-ls: 1.2.1
+
+    type-fest@0.20.2: {}
 
     type-is@1.6.18:
         dependencies:

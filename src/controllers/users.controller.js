@@ -53,7 +53,6 @@ export const getByIdUserController = async (req, res, next) => {
 export const getBySearchUserController = async (req, res, next) => {
     try {
         const { username } = req.query
-        console.log({ username })
 
         const data = await getUserService('username', username)
         return res.status(200).send({
