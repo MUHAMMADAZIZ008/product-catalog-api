@@ -55,6 +55,7 @@ export const getoneProductController = async (req, res, next) => {
 
 export const createProductController = async (req, res, next) => {
     try {
+        
         const newProducts = await createProductService(req.body)
 
         return res.status(201).send({

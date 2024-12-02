@@ -1,12 +1,18 @@
 export const roleGuard = (allowedRoles) => {
     return (req, res, next) => {
         try {
-            const { role, sub } = req.user
-            if (!allowedRoles.includes(role) || sub !== req.params.id) {
-                throw new ForbiddenError('access deny!')
+            
+            const userRole = req.user.role
+            if (allowedRoles.includes(userRole)) {
+                next()
+            } else {
+                return res.status(403).send({
+                    message: "Access denied: insufficient permissions",
+                    date: userRole
+                })
             }
-            next()
-        } catch (e) {
+        }
+        catch (e) {
             logger.error(e)
             next(e)
         }

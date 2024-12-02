@@ -1,4 +1,4 @@
-import db from '../configs/db.js'
+import db from '../database/index.js'
 import { AppError } from '../utils/index.js'
 
 export const getProductService = async (type, data = '') => {
@@ -66,7 +66,6 @@ export const createProductService = async (productData) => {
         const newProduct = await db('products')
             .insert(productData)
             .returning('*')
-
         return newProduct
     } catch (error) {
         throw new AppError(error.message, 500)
