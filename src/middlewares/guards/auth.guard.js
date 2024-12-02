@@ -1,4 +1,5 @@
 import { verifyToken } from '../../utils/index.js'
+import { logger } from '../../utils/index.js'
 
 export const authGuard = (secret) => {
     return (req, res, next) => {

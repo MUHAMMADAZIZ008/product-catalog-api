@@ -1,7 +1,6 @@
 import { z } from 'zod'
 
 export const cartSchema = z.object({
-    id: z.string().uuid("Invalid UUID format for 'id'"),
     customer_id: z
         .string()
         .uuid("Invalid UUID format for 'customer_id'")

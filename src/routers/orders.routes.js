@@ -11,7 +11,7 @@ orderRouter.get('/', ordersController.getAll)
 orderRouter.get(
     '/:id',
     authGuard(secret),
-    roleGuard('user', 'admin'),
+    roleGuard(['user', 'admin']),
     ordersController.getById,
 )
 orderRouter.post(
