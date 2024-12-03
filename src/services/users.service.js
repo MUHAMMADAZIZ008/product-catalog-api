@@ -136,7 +136,7 @@ export const daleteUserService = async (id) => {
 }
 
 //auth
-export const authService = async (user) => {
+export const authRegisterService = async (user) => {
     return db.transaction(async (trx) => {
         try {
             const dontAllowed = ['admin', 'superAdmin', 'manager']
