@@ -24,14 +24,12 @@ usersRouter.post(
 usersRouter.get(
     '/',
     authGuard(secret),
-    roleGuard(['admin', 'superAdmin']),
     getAllUserController,
 )
 usersRouter.get('/search', getBySearchUserController)
 usersRouter.get(
     '/:id',
     authGuard(secret),
-    roleGuard(['admin', 'superAdmin']),
     getByIdUserController,
 )
 usersRouter.put(

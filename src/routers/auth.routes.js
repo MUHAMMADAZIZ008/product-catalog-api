@@ -2,7 +2,8 @@ import { Router } from 'express'
 import { authGuard, checkValidatons, roleGuard } from '../middlewares/index.js'
 import { userSchema } from '../validations/index.js'
 import {
-    createdAdminContrloller1,
+    createdAdminController,
+    deleteAdminController,
     forgetPasswordController,
     loginController,
     otpContrloller,
@@ -27,5 +28,11 @@ authRouter.post(
     authGuard(secret),
     roleGuard(['admin', 'superAdmin']),
     checkValidatons(userSchema),
-    createdAdminContrloller1,
+    createdAdminController,
+)
+authRouter.delete(
+    '/delete-admin/:id',
+    authGuard(secret),
+    roleGuard(['admin', 'superAdmin']),
+    deleteAdminController,
 )
