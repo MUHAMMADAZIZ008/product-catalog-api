@@ -92,7 +92,6 @@ export const createdAdminController = async (req, res, next) => {
     }
 }
 
-
 export const deleteAdminController = async (req, res, next) => {
     try {
         const id = req.params.id
