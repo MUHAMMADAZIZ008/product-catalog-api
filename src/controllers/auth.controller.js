@@ -1,5 +1,5 @@
 import {
-    authService,
+    authRegisterService,
     createUserService,
     daleteUserService,
     forgetPasswordService,
@@ -12,7 +12,7 @@ import { logger } from '../utils/index.js'
 export const registerContrloller = async (req, res, next) => {
     try {
         const body = req.body
-        const newUser = await authService(body)
+        const newUser = await authRegisterService(body)
 
         res.status(200).send({
             message: 'Your otp has been sent to your email!',
