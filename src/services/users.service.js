@@ -268,7 +268,7 @@ export const forgetPasswordService = async (email) => {
         }
         const forget_token = await forgetPasswordToken(payload)
         const now = new Date() // Hozirgi vaqt
-        const twoMinuteLater = new Date(now.getTime() + 2 * 60 * 1000)
+        const twoMinuteLater = new Date(now.getTime() + 3 * 60 * 1000)
         await db('password_resets').insert({
             user_id: currentUser[0].id,
             token: forget_token,

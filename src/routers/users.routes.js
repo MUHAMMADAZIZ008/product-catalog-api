@@ -21,19 +21,9 @@ usersRouter.post(
     checkValidatons(userSchema),
     createUserController,
 )
-usersRouter.get(
-    '/',
-    authGuard(secret),
-    roleGuard(['admin', 'superAdmin']),
-    getAllUserController,
-)
+usersRouter.get('/', authGuard(secret), getAllUserController)
 usersRouter.get('/search', getBySearchUserController)
-usersRouter.get(
-    '/:id',
-    authGuard(secret),
-    roleGuard(['admin', 'superAdmin']),
-    getByIdUserController,
-)
+usersRouter.get('/:id', authGuard(secret), getByIdUserController)
 usersRouter.put(
     '/:id',
     authGuard(secret),
